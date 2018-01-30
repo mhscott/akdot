@@ -177,6 +177,7 @@ proc OpenSeesSoilSpring {tag depth {xTrib 1.0} {pShadow 1.0}} {
 
     global analysisPropsTMP
     set subtractWater $analysisPropsTMP(subtractWater)
+    set allElastic $analysisPropsTMP(allElastic)
 
     set gammaWater [expr {62.4*$pcf}]
     if {$subtractWater && $x > $waterTableDepth} {

@@ -154,6 +154,7 @@ proc OpenSeesRebarSteel {tag} {
 
     global analysisProps
     set overstrength $analysisProps(overstrength)
+    set allElastic $analysisProps(allElastic)
 
     global rfsteelPropsTMP
     foreach var [array names rfsteelPropsTMP] {
@@ -163,9 +164,12 @@ proc OpenSeesRebarSteel {tag} {
     set fye [expr $fye*$ksi]
     set fue [expr $fue*$ksi]
 
-    uniaxialMaterial Elastic -$tag $E
-    #hystereticBackbone Raynor $tag $E $fye $fue $epssh $epssu $C1 [expr 0.0001*$E]
-    #uniaxialMaterial Backbone -$tag $tag
+    if {$allElastic} {
+	uniaxialMaterial Elastic -$tag $E
+    } else {
+	hystereticBackbone Raynor $tag $E $fye $fue $epssh $epssu $C1 [expr 0.0001*$E]
+	uniaxialMaterial Backbone -$tag $tag
+    }
     uniaxialMaterial Multiplier $tag -$tag $overstrength
 }
 

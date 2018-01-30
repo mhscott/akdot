@@ -273,12 +273,16 @@ proc OpenSeesConcrete {tagUnconf tagCISS tagHoop tagPile} {
 
     global analysisProps
     set overstrength $analysisProps(overstrength)
+    set allElastic $analysisProps(allElastic)
 
-    #set Ec [expr {57*sqrt($fc/$psi)*$ksi}]
-    set Ec [expr {2*$fc/$eco}]
+    set Ec [expr {57*sqrt($fc/$psi)*$ksi}]
+    #set Ec [expr {2*$fc/$eco}]
     
+    if {$allElastic} {
 	uniaxialMaterial Elastic -$tagUnconf $Ec
-    #uniaxialMaterial Concrete01 -$tagUnconf $fc $eco 0.0 $esp
+    } else {
+	uniaxialMaterial Concrete01 -$tagUnconf $fc $eco 0.0 $esp
+    }
     uniaxialMaterial Multiplier $tagUnconf -$tagUnconf $overstrength
 
     # Force recalc of confined props to ensure
@@ -289,18 +293,24 @@ proc OpenSeesConcrete {tagUnconf tagCISS tagHoop tagPile} {
     set fcc $concretePropsTMP(fcc,1)
     set fcc [expr {$fcc*$ksi}]
 
-    hystereticBackbone Mander $tagCISS $fcc $ecc $Ec
-    #uniaxialMaterial Backbone -$tagCISS $tagCISS
+    if {$allElastic} {
 	uniaxialMaterial Elastic -$tagCISS $Ec
+    } else {
+	hystereticBackbone Mander $tagCISS $fcc $ecc $Ec
+	uniaxialMaterial Backbone -$tagCISS $tagCISS
+    }
     uniaxialMaterial Multiplier $tagCISS -$tagCISS $overstrength
 
     set ecchoop $concretePropsTMP(ecchoop,1)
     set fcchoop $concretePropsTMP(fcchoop,1)
     set fcchoop [expr {$fcchoop*$ksi}]
    
-    hystereticBackbone Mander $tagHoop $fcchoop $ecchoop $Ec
-    #uniaxialMaterial Backbone -$tagHoop $tagHoop
+    if {$allElastic} {
 	uniaxialMaterial Elastic -$tagHoop $Ec
+    } else {
+	hystereticBackbone Mander $tagHoop $fcchoop $ecchoop $Ec
+	uniaxialMaterial Backbone -$tagHoop $tagHoop
+    }
     uniaxialMaterial Multiplier $tagHoop -$tagHoop $overstrength
 
     ManderModel 2
@@ -309,9 +319,12 @@ proc OpenSeesConcrete {tagUnconf tagCISS tagHoop tagPile} {
     set fcc $concretePropsTMP(fcc,2)
     set fcc [expr {$fcc*$ksi}]
 
-    hystereticBackbone Mander $tagPile $fcc $ecc $Ec
-    #uniaxialMaterial Backbone -$tagPile $tagPile
+    if {$allElastic} {
 	uniaxialMaterial Elastic -$tagPile $Ec
+    } else {
+	hystereticBackbone Mander $tagPile $fcc $ecc $Ec
+	uniaxialMaterial Backbone -$tagPile $tagPile
+    }
     uniaxialMaterial Multiplier $tagPile -$tagPile $overstrength
 }
 

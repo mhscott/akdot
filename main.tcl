@@ -10,22 +10,22 @@ lappend auto_path $dir
 lappend auto_path $wd
 
 if {1 || $tcl_platform(platform) == "unix" || $tcl_platform(platform) == "linux"} {
-    #source /nfs/depot/cce_u1/scott/mhscott/snit1.0/snit.tcl
-    #source /nfs/depot/cce_u1/scott/mhscott/snit1.0/pkgIndex.tcl
-    source ./snit1.0/snit.tcl
-    source ./snit1.0/pkgIndex.tcl
+    source /nfs/depot/cce_u1/scott/mhscott/snit1.0/snit.tcl
+    source /nfs/depot/cce_u1/scott/mhscott/snit1.0/pkgIndex.tcl
+    #source ./snit1.0/snit.tcl
+    #source ./snit1.0/pkgIndex.tcl
     
-    #source /nfs/depot/cce_u1/scott/mhscott/pdf4tcl05/glyphnames.tcl
-    #source /nfs/depot/cce_u1/scott/mhscott/pdf4tcl05/metrics.tcl
-    #source /nfs/depot/cce_u1/scott/mhscott/pdf4tcl05/pdf4tcl.tcl
-    #source /nfs/depot/cce_u1/scott/mhscott/pdf4tcl05/pkgIndex.tcl
-    source ./pdf4tcl05/glyphnames.tcl
-    source ./pdf4tcl05/metrics.tcl
-    source ./pdf4tcl05/pdf4tcl.tcl
-    source ./pdf4tcl05/pkgIndex.tcl
+    source /nfs/depot/cce_u1/scott/mhscott/pdf4tcl05/glyphnames.tcl
+    source /nfs/depot/cce_u1/scott/mhscott/pdf4tcl05/metrics.tcl
+    source /nfs/depot/cce_u1/scott/mhscott/pdf4tcl05/pdf4tcl.tcl
+    source /nfs/depot/cce_u1/scott/mhscott/pdf4tcl05/pkgIndex.tcl
+    #source ./pdf4tcl05/glyphnames.tcl
+    #source ./pdf4tcl05/metrics.tcl
+    #source ./pdf4tcl05/pdf4tcl.tcl
+    #source ./pdf4tcl05/pkgIndex.tcl
 
-    #source /nfs/depot/cce_u1/scott/mhscott/emu-graph1.1.2/tcl/graph.tcl
-    source ./emu-graph1.1.2/tcl/graph.tcl
+    source /nfs/depot/cce_u1/scott/mhscott/emu-graph1.1.2/tcl/graph.tcl
+    #source ./emu-graph1.1.2/tcl/graph.tcl
 } else {
     #source m:\\snit1.0\\snit.tcl
     #source m:\\snit1.0\\pkgIndex.tcl

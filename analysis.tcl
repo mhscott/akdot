@@ -50,6 +50,7 @@ set analysisProps(postPeak)      80
 set analysisProps(lateralLoad) 1 ;# 1 = distributed, 0 = concentrated
 set analysisProps(overstrength)      1.0
 set analysisProps(subtractWater) 1
+set analysisProps(allElastic) 0
 set analysisProps(massDL) 1.0
 set analysisProps(damping) 5
 set analysisProps(stiffnessProp) 1 ;# 1 = last committed, 0 = initial
@@ -329,6 +330,15 @@ proc DefineModelingOptions {w} {
     grid $w.input.wdOn -row $row -column 1
     radiobutton $w.input.wdOff -variable analysisPropsTMP(subtractWater) -text Off -value 0
     grid $w.input.wdOff -row $row -column 2
+
+    incr row
+
+    label $w.input.radioAE -text "All Elastic Materials"
+    grid $w.input.radioAE -row $row -column 0 -sticky e
+    radiobutton $w.input.aeOn -variable analysisPropsTMP(allElastic) -text On -value 1
+    grid $w.input.aeOn -row $row -column 1
+    radiobutton $w.input.aeOff -variable analysisPropsTMP(allElastic) -text Off -value 0
+    grid $w.input.aeOff -row $row -column 2
 
     incr row
 
