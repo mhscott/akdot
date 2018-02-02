@@ -1306,14 +1306,14 @@ proc AnalyzeOneStep {{TorL T}} {
 
    global bentCapElems
    foreach ele $bentCapElems {
-		puts "$ele: [expr -[eleForce $ele 3]] [eleForce $ele 6]"
+       #puts "$ele: [expr -[eleForce $ele 3]] [eleForce $ele 6]"
    }
    
    # Make sure there is more than one column and analysis is transverse
    if {$N > 1 && $TorL == "T"} {
        # Bent cap forces at inside face of leading pile
        set ele [expr {2*$N+3*$N-1}]
-	   puts "Leading element: $ele"
+       #puts "Leading element: $ele"
        set bentCapForces(lead,N) [expr [eleForce $ele 4]] ;# tension +ve
        set bentCapForces(lead,V) [expr -[eleForce $ele 5]] ;# down right face +ve
        set bentCapForces(lead,M) [expr [eleForce $ele 6]] ;# top of beam compression +ve
@@ -1327,7 +1327,7 @@ proc AnalyzeOneStep {{TorL T}} {
        
        # Bent cap forces at inside face of trailing pile
        set ele [expr {2*$N+5}]
-	   puts "Trailing element: $ele"
+       #puts "Trailing element: $ele"
        set bentCapForces(trail,N) [expr -[eleForce $ele 1]] ;# tension -ve
        set bentCapForces(trail,V) [expr [eleForce $ele 2]] ;# up left face +ve
        set bentCapForces(trail,M) [expr -[eleForce $ele 3]] ;# top of beam compression +ve
@@ -2773,7 +2773,7 @@ proc DefineOpenSeesModel {{TorL T}} {
 	
 	# Column
 	#element forceBeamColumn [expr {2*$i-1}] $ndI $ndJ $corotTransfTag RegularizedHinge Lobatto 5 $CISSSectionTag 0.0 0.0 $jacketlessSectionTag $lp [expr {0.015*$L*$ft}] $jacketSectionTag; set gapSection 5; set jacketSection 1
-	element forceBeamColumn [expr {2*$i-1}] $ndI $ndJ $corotTransfTag HingeRadau $CISSSectionTag 0 $GapSectionTag $lp $CISSSectionTag; set gapSection 6; set jacketSection 1
+	element forceBeamColumn [expr {2*$i-1}] $ndI $ndJ $corotTransfTag HingeRadau $CISSSectionTag $Dc $GapSectionTag $lp $CISSSectionTag; set gapSection 6; set jacketSection 1
 	#element forceBeamColumn [expr {2*$i-1}] $ndI $ndJ $corotTransfTag Lobatto $CISSSectionTag 5; set gapSection 5; set jacketSection 1
 	
 	# Bent rigid link (vertical)
