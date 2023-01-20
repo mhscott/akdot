@@ -34,7 +34,7 @@ proc ReadFile {filename} {
     return 0
 }
 
-set outFile [open zCISS_Oct26_2017.tcl w]
+set outFile [open zCISS_Feb02_2018.tcl w]
 
 ReadFile main.tcl
 
